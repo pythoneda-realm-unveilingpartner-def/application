@@ -174,6 +174,7 @@
               chmod -R +w $sourceRoot
               cp ${pyprojectTemplate} $sourceRoot/pyproject.toml
               cp ${bannerTemplate} $sourceRoot/${banner_file}
+              cat $sourceRoot/flake.nix
               cp entrypoint.sh $sourceRoot/
             '';
 
