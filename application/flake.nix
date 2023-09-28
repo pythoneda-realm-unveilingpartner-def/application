@@ -19,52 +19,50 @@
 {
   description = "Application layer for pythoneda-realm-unveilingpartner/realm";
   inputs = rec {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
     pythoneda-realm-unveilingpartner-infrastructure = {
-      url =
-        "github:pythoneda-realm-unveilingpartner/infrastructure-artifact/0.0.1a2?dir=infrastructure";
-      inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.pythoneda-realm-unveilingpartner-realm.follows =
-        "pythoneda-realm-unveilingpartner-realm";
+      inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythoneda-banner.follows =
         "pythoneda-shared-pythoneda-banner";
       inputs.pythoneda-shared-pythoneda-domain.follows =
         "pythoneda-shared-pythoneda-domain";
+      url =
+        "github:pythoneda-realm-unveilingpartner/infrastructure-artifact/0.0.2?dir=infrastructure";
     };
     pythoneda-realm-unveilingpartner-realm = {
-      url =
-        "github:pythoneda-realm-unveilingpartner/realm-artifact/0.0.1a2?dir=realm";
-      inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythoneda-banner.follows =
         "pythoneda-shared-pythoneda-banner";
       inputs.pythoneda-shared-pythoneda-domain.follows =
         "pythoneda-shared-pythoneda-domain";
+      url =
+        "github:pythoneda-realm-unveilingpartner/realm-artifact/0.0.2?dir=realm";
     };
     pythoneda-shared-pythoneda-application = {
-      url =
-        "github:pythoneda-shared-pythoneda/application-artifact/0.0.1a32?dir=application";
-      inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythoneda-banner.follows =
         "pythoneda-shared-pythoneda-banner";
       inputs.pythoneda-shared-pythoneda-domain.follows =
         "pythoneda-shared-pythoneda-domain";
+      url =
+        "github:pythoneda-shared-pythoneda/application-artifact/0.0.2?dir=application";
     };
     pythoneda-shared-pythoneda-banner = {
-      url = "github:pythoneda-shared-pythoneda/banner/0.0.1a17";
-      inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.nixos.follows = "nixos";
+      url = "github:pythoneda-shared-pythoneda/banner/0.0.2";
     };
     pythoneda-shared-pythoneda-domain = {
-      url =
-        "github:pythoneda-shared-pythoneda/domain-artifact/0.0.1a43?dir=domain";
-      inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythoneda-banner.follows =
         "pythoneda-shared-pythoneda-banner";
+      url =
+        "github:pythoneda-shared-pythoneda/domain-artifact/0.0.2?dir=domain";
     };
   };
   outputs = inputs:
@@ -73,13 +71,12 @@
       let
         org = "pythoneda-realm-unveilingpartner";
         repo = "application";
-        version = "0.0.1a3";
-        sha256 = "sha256-4L4N5gZFDJ/+QrClvgBxWe6SsIRCKu19SNLkrRFT+mE=";
+        version = "0.0.2";
+        sha256 = "sha256-0WOupoxXT3e9v6qKeCDOE9GMWjqgp3bh9jIcGWd3H28=";
         pname = "${org}-${repo}";
         pythonpackage = builtins.replaceStrings [ "-" ] [ "." ] pname;
         package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
-        app = "unveilingpartner_app";
-        entrypoint = "${pname}.sh";
+        entrypoint = "unveilingpartner_app";
         description =
           "Application layer for pythoneda-realm-unveilingpartner/realm";
         license = pkgs.lib.licenses.gpl3;
@@ -148,7 +145,21 @@
               nixpkgs_release = nixpkgsRelease;
               src = bannerTemplateFile;
             };
-
+            entrypointTemplateFile =
+              "${pythoneda-shared-pythoneda-banner}/templates/entrypoint.sh.template";
+            entrypointTemplate = pkgs.substituteAll {
+              arch_role = archRole;
+              hexagonal_layer = layer;
+              nixpkgs_release = nixpkgsRelease;
+              inherit homepage maintainers org python repo version;
+              pescio_space = space;
+              python_version = pythonMajorMinorVersion;
+              pythoneda_shared_pythoneda_banner =
+                pythoneda-shared-pythoneda-banner;
+              pythoneda_shared_pythoneda_domain =
+                pythoneda-shared-pythoneda-domain;
+              src = entrypointTemplateFile;
+            };
             src = pkgs.fetchFromGitHub {
               owner = org;
               rev = version;
@@ -174,25 +185,14 @@
               chmod -R +w $sourceRoot
               cp ${pyprojectTemplate} $sourceRoot/pyproject.toml
               cp ${bannerTemplate} $sourceRoot/${banner_file}
-              cat $sourceRoot/flake.nix
-              cp entrypoint.sh $sourceRoot/
+              cp ${entrypointTemplate} $sourceRoot/entrypoint.sh
             '';
 
             postPatch = ''
               substituteInPlace /build/$sourceRoot/entrypoint.sh \
-                --replace "@ORG@" "${org}" \
-                --replace "@REPO@" "${repo}" \
-                --replace "@VERSION@" "${version}" \
-                --replace "@PESCIO_SPACE@" "${space}" \
-                --replace "@ARCH_ROLE@" "${archRole}" \
-                --replace "@HEXAGONAL_LAYER@" "${layer}" \
-                --replace "@PYTHON@" "${python}" \
+                --replace "@SOURCE@" "$out/bin/${entrypoint}.sh" \
                 --replace "@PYTHONPATH@" "$PYTHONPATH" \
-                --replace "@ENTRYPOINT@" "$out/lib/python${pythonMajorMinorVersion}/site-packages/${package}/${entrypoint}.py" \
-                --replace "@PYTHONEDA_SHARED_PYTHONEDA_DOMAIN@" "${pythoneda-shared-pythoneda-domain}" \
-                --replace "@PYTHONEDA_SHARED_PYTHONEDA_BANNER@" "${pythoneda-shared-pythoneda-banner}" \
-                --replace "@PYTHON_VERSION@" "${python.version}" \
-                --replace "@NIXPKGS_RELEASE@" "${nixosVersion}"
+                --replace "@ENTRYPOINT@" "$out/lib/python${pythonMajorMinorVersion}/site-packages/${package}/${entrypoint}.py"
             '';
 
             postInstall = ''
@@ -206,8 +206,8 @@
               mkdir $out/dist $out/bin
               cp dist/${wheelName} $out/dist
               jq ".url = \"$out/dist/${wheelName}\"" $out/lib/python${pythonMajorMinorVersion}/site-packages/${pnameWithUnderscores}-${version}.dist-info/direct_url.json > temp.json && mv temp.json $out/lib/python${pythonMajorMinorVersion}/site-packages/${pnameWithUnderscores}-${version}.dist-info/direct_url.json
-              cp /build/$sourceRoot/entrypoint.sh $out/bin/${entrypoint}
-              chmod +x $out/bin/${entrypoint}
+              cp /build/$sourceRoot/entrypoint.sh $out/bin/${entrypoint}.sh
+              chmod +x $out/bin/${entrypoint}.sh
             '';
 
             meta = with pkgs.lib; {

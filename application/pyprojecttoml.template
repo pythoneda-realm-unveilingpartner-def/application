@@ -28,6 +28,7 @@ packages = [{include = "@package@"}]
 [tool.poetry.dependencies]
 python = "^@pythonMajorMinorVersion@"
 pythoneda-realm-unveilingpartner-infrastructure = "^@pythonedaRealmUnveilingpartnerInfrastructure@"
+pythoneda-realm-unveilingpartner-realm = "^@pythonedaRealmUnveilingpartnerRealm@"
 pythoneda-shared-pythoneda-application = "^@pythonedaSharedPythonedaApplication@"
 pythoneda-shared-pythoneda-banner = "^@pythonedaSharedPythonedaBanner@"
 pythoneda-shared-pythoneda-domain = "^@pythonedaSharedPythonedaDomain@"
