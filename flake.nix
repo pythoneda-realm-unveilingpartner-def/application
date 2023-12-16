@@ -28,7 +28,7 @@
         "pythoneda-shared-pythoneda-banner";
       inputs.pythoneda-shared-pythoneda-domain.follows =
         "pythoneda-shared-pythoneda-domain";
-      url = "github:pythoneda-realm-unveilingpartner-def/infrastructure/0.0.8";
+      url = "github:pythoneda-realm-unveilingpartner-def/infrastructure/0.0.9";
     };
     pythoneda-realm-unveilingpartner-realm = {
       inputs.flake-utils.follows = "flake-utils";
@@ -37,7 +37,7 @@
         "pythoneda-shared-pythoneda-banner";
       inputs.pythoneda-shared-pythoneda-domain.follows =
         "pythoneda-shared-pythoneda-domain";
-      url = "github:pythoneda-realm-unveilingpartner-def/realm/0.0.5";
+      url = "github:pythoneda-realm-unveilingpartner-def/realm/0.0.6";
     };
     pythoneda-shared-pythoneda-application = {
       inputs.flake-utils.follows = "flake-utils";
@@ -46,7 +46,7 @@
         "pythoneda-shared-pythoneda-banner";
       inputs.pythoneda-shared-pythoneda-domain.follows =
         "pythoneda-shared-pythoneda-domain";
-      url = "github:pythoneda-shared-pythoneda-def/application/0.0.27";
+      url = "github:pythoneda-shared-pythoneda-def/application/0.0.28";
     };
     pythoneda-shared-pythoneda-banner = {
       inputs.flake-utils.follows = "flake-utils";
@@ -67,8 +67,8 @@
       let
         org = "pythoneda-realm-unveilingpartner";
         repo = "application";
-        version = "0.0.3";
-        sha256 = "0gx2nw6d9nc0628kqbx0wwisjibyyg4lzcl2llv743jmnyn24j2j";
+        version = "0.0.4";
+        sha256 = "085nwr3p7ga4idy15my4f5ir7dcip30sg9wnwmz6j7mr49v2baj6";
         pname = "${org}-${repo}";
         pythonpackage = builtins.replaceStrings [ "-" ] [ "." ] pname;
         package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
