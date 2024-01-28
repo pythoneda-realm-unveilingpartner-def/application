@@ -28,7 +28,7 @@
         "pythoneda-shared-banner";
       inputs.pythoneda-shared-domain.follows =
         "pythoneda-shared-domain";
-      url = "github:pythoneda-realm-unveilingpartner-def/infrastructure/0.0.28";
+      url = "github:pythoneda-realm-unveilingpartner-def/infrastructure/0.0.29";
     };
     pythoneda-realm-unveilingpartner-realm = {
       inputs.flake-utils.follows = "flake-utils";
@@ -46,7 +46,7 @@
         "pythoneda-shared-banner";
       inputs.pythoneda-shared-domain.follows =
         "pythoneda-shared-domain";
-      url = "github:pythoneda-shared-def/application/0.0.50";
+      url = "github:pythoneda-shared-def/application/0.0.51";
     };
     pythoneda-shared-banner = {
       inputs.flake-utils.follows = "flake-utils";
