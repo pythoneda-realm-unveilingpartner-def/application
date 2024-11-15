@@ -108,8 +108,8 @@
           in python.pkgs.buildPythonApplication rec {
             inherit pname version;
             projectDir = ./.;
-            pyprojectTemplateFile = ./pyprojecttoml.template;
-            pyprojectTemplate = pkgs.substituteAll {
+            pyprojectTomlTemplate = ./templates/pyproject.toml.template;
+            pyprojectToml = pkgs.substituteAll {
               authors = builtins.concatStringsSep ","
                 (map (item: ''"${item}"'') maintainers);
               desc = description;
@@ -125,7 +125,7 @@
                 pythoneda-shared-pythonlang-banner.version;
               pythonedaSharedPythonlangDomain =
                 pythoneda-shared-pythonlang-domain.version;
-              src = pyprojectTemplateFile;
+              src = pyprojectTomlTemplate;
             };
             bannerTemplateFile =
               "${pythoneda-shared-pythonlang-banner}/templates/banner.py.template";
@@ -177,7 +177,7 @@
               cp -r ${src} .
               sourceRoot=$(ls | grep -v env-vars)
               chmod -R +w $sourceRoot
-              cp ${pyprojectTemplate} $sourceRoot/pyproject.toml
+              cp ${pyprojectToml} $sourceRoot/pyproject.toml
               cp ${bannerTemplate} $sourceRoot/${banner_file}
               cp ${entrypointTemplate} $sourceRoot/entrypoint.sh
             '';
@@ -211,7 +211,7 @@
         apps = rec {
           default = pythoneda-realm-unveilingpartner-application-default;
           pythoneda-realm-unveilingpartner-application-default =
-            pythoneda-realm-unveilingpartner-application-python311;
+            pythoneda-realm-unveilingpartner-application-python312;
           pythoneda-realm-unveilingpartner-application-python38 =
             shared.app-for {
               package =
@@ -236,13 +236,19 @@
                 self.packages.${system}.pythoneda-realm-unveilingpartner-application-python311;
               inherit entrypoint;
             };
+          pythoneda-realm-unveilingpartner-application-python312 =
+            shared.app-for {
+              package =
+                self.packages.${system}.pythoneda-realm-unveilingpartner-application-python312;
+              inherit entrypoint;
+            };
         };
         defaultApp = apps.default;
         defaultPackage = packages.default;
         devShells = rec {
           default = pythoneda-realm-unveilingpartner-application-default;
           pythoneda-realm-unveilingpartner-application-default =
-            pythoneda-realm-unveilingpartner-application-python311;
+            pythoneda-realm-unveilingpartner-application-python312;
           pythoneda-realm-unveilingpartner-application-python38 =
             shared.devShell-for {
               banner = "${
@@ -307,11 +313,27 @@
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python311;
               inherit archRole layer org pkgs repo space;
             };
+          pythoneda-realm-unveilingpartner-application-python312 =
+            shared.devShell-for {
+              banner = "${
+                  pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312
+                }/bin/banner.sh";
+              extra-namespaces = "";
+              nixpkgs-release = nixpkgsRelease;
+              package =
+                packages.pythoneda-realm-unveilingpartner-application-python312;
+              python = pkgs.python312;
+              pythoneda-shared-pythonlang-domain =
+                pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
+              pythoneda-shared-pythonlang-banner =
+                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
+              inherit archRole layer org pkgs repo space;
+            };
         };
         packages = rec {
           default = pythoneda-realm-unveilingpartner-application-default;
           pythoneda-realm-unveilingpartner-application-default =
-            pythoneda-realm-unveilingpartner-application-python311;
+            pythoneda-realm-unveilingpartner-application-python312;
           pythoneda-realm-unveilingpartner-application-python38 =
             pythoneda-realm-unveilingpartner-application-for {
               python = pkgs.python38;
@@ -367,6 +389,20 @@
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python311;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python311;
+            };
+          pythoneda-realm-unveilingpartner-application-python312 =
+            pythoneda-realm-unveilingpartner-application-for {
+              python = pkgs.python312;
+              pythoneda-realm-unveilingpartner-infrastructure =
+                pythoneda-realm-unveilingpartner-infrastructure.packages.${system}.pythoneda-realm-unveilingpartner-infrastructure-python312;
+              pythoneda-realm-unveilingpartner-realm =
+                pythoneda-realm-unveilingpartner-realm.packages.${system}.pythoneda-realm-unveilingpartner-realm-python312;
+              pythoneda-shared-pythonlang-application =
+                pythoneda-shared-pythonlang-application.packages.${system}.pythoneda-shared-pythonlang-application-python312;
+              pythoneda-shared-pythonlang-banner =
+                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
+              pythoneda-shared-pythonlang-domain =
+                pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
             };
         };
       });
