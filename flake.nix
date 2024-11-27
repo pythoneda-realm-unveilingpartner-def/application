@@ -28,7 +28,7 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-realm-unveilingpartner-def/infrastructure/0.0.56";
+      url = "github:pythoneda-realm-unveilingpartner-def/infrastructure/0.0.58";
     };
     pythoneda-realm-unveilingpartner-realm = {
       inputs.flake-utils.follows = "flake-utils";
@@ -37,7 +37,7 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-realm-unveilingpartner-def/realm/0.0.46";
+      url = "github:pythoneda-realm-unveilingpartner-def/realm/0.0.48";
     };
     pythoneda-shared-pythonlang-application = {
       inputs.flake-utils.follows = "flake-utils";
@@ -46,19 +46,19 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-shared-pythonlang-def/application/0.0.83";
+      url = "github:pythoneda-shared-pythonlang-def/application/0.0.84";
     };
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.69";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.70";
     };
     pythoneda-shared-pythonlang-domain = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
-      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.86";
+      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.88";
     };
   };
   outputs = inputs:
@@ -67,8 +67,8 @@
       let
         org = "pythoneda-realm-unveilingpartner";
         repo = "application";
-        version = "0.0.7";
-        sha256 = "0k2yxs4wg22qi9pqyhzj12j24cpw6cz9m35n7m0gklj2y41gnd76";
+        version = "0.0.8";
+        sha256 = "032pkv1l1phf8qw5acmlk1w95xd0yrfjw4mgbm683fvqfzsiwsbx";
         pname = "${org}-${repo}";
         pythonpackage = builtins.replaceStrings [ "-" ] [ "." ] pname;
         package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
