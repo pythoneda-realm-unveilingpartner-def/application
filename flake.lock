@@ -167,16 +167,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1733649666,
-        "narHash": "sha256-u3pEH4EmaTi9V6RHZelIWSWBnKiXeayN2voTK2WQpIQ=",
+        "lastModified": 1733924415,
+        "narHash": "sha256-onh3v14uJZAl+caUgT0Cjc/GkBUGrlVoqQczdZNExFk=",
         "owner": "pythoneda-realm-unveilingpartner-def",
         "repo": "realm",
-        "rev": "238fa3c4a34554f55fb1ba3e3dfdfc7e2b3d8c83",
+        "rev": "c0160ee1d748b7fea78a2a157b1f881edadfb54a",
         "type": "github"
       },
       "original": {
         "owner": "pythoneda-realm-unveilingpartner-def",
-        "ref": "0.0.55",
+        "ref": "0.0.56",
         "repo": "realm",
         "type": "github"
       }
@@ -354,16 +354,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1733647765,
-        "narHash": "sha256-eMRJVmhYrRpO15z+A0XTOAGZTx7fXJnsIa6CFBs1E6o=",
+        "lastModified": 1733922161,
+        "narHash": "sha256-No60xNOvwGajgj2PVSZYdbBlThjfwygCdMD2NTYfAlM=",
         "owner": "pythoneda-shared-artifact-def",
         "repo": "events",
-        "rev": "3fcc8543fb68e7f66dab927054c87c1ae149f897",
+        "rev": "0ee7bf65648af1aea7c553a3423e00d588f64d64",
         "type": "github"
       },
       "original": {
         "owner": "pythoneda-shared-artifact-def",
-        "ref": "0.0.73",
+        "ref": "0.0.74",
         "repo": "events",
         "type": "github"
       }
